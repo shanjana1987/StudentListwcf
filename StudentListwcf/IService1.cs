@@ -14,34 +14,39 @@ namespace StudentListwcf
     {
 
         [OperationContract]
-        string GetData(int value);
+        IEnumerable<Student> GetAllStudents();
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        Student AddStudent(string name, int semester);
 
-        // TODO: Add your service operations here
+        [OperationContract]
+        Student FindStudentById(int id);
+
+        [OperationContract]
+        IEnumerable<Student> FindStudentByName(string name);
+
+        [OperationContract]
+        bool RemoveStudent(int id);
+
+        [OperationContract]
+        bool EditStudent(int id, string name, int semester);
+
+        /// <summary>
+        /// Good for testing purposes
+        /// </summary>
+        [OperationContract]
+        void Clear();
     }
 
-
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
     [DataContract]
-    public class CompositeType
+    public class Student
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
+        public int Id { get; set; }
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string Name { get; set; }
+        [DataMember]
+        public int Semester { get; set; }
     }
 }
+
